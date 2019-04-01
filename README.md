@@ -7,7 +7,7 @@ The python version will use Pillow to read the image.
 ### Usage: 
 1) java:
 ```
-	./run.sh [arguments]
+	./run.sh [image] [arguments]
 ```
 * the arguments will be for which algorithm the program should use (not yet implemented).
 	
