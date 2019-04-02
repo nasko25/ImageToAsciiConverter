@@ -1,9 +1,11 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.awt.Dimension;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File; 
 import java.lang.Float;
+import java.lang.Math;
 import javax.imageio.ImageIO;
 
 public class ImageToAscii {
@@ -68,6 +70,16 @@ public class ImageToAscii {
 		}
 
 		String characters = "`^\",:;Il!i~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$";
+		
+		// map the brightness values to the characters
+		float maxBrightness = Collections.max(brightnessValues);	
+		float minBrightness = Collections.min(brightnessValues);
+		float brightnessLength = (float) (Math.ceil(maxBrightness) - Math.floor(minBrightness));
+
+		float c = ( brightnessLength / ((float) characters.length()));
+
+		// to map the brightness vales to the characters, you need to divide the brightness value to c, and floor the result
+		// the result corresponds to the index of the charater in the String characters.
 	}
 
 	public static interface Interface {
