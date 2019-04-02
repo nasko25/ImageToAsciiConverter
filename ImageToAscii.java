@@ -66,6 +66,8 @@ public class ImageToAscii {
 				brightnessValues.add(ref.getAlgorithmResult(color));
 			}
 		}
+
+		String characters = "`^\",:;Il!i~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$";
 	}
 
 	public static interface Interface {
