@@ -9,5 +9,5 @@ fi
 
 javac ImageToAscii.java
 printf "OUTPUT:\n"
-java ImageToAscii $1
+java ImageToAscii $1 $2
 
