@@ -6,6 +6,13 @@ import java.io.File;
 import javax.imageio.ImageIO;
 
 public class ImageToAscii {
+
+	public static float Average(Color color) {
+		return (((float)color.getRed() + color.getGreen() + color.getBlue()))/3.0f;
+	}
+
+
+
 	public static void main(String args[]) throws Exception{
 		if (args.length >= 1) {
 			System.out.println(args[0]);
@@ -20,11 +27,9 @@ public class ImageToAscii {
 		for (int w = 0; w < width; w++) {
 			for (int h = 0; h < height; h++) {
 				Color color = new Color(image.getRGB(w, h));
-				// System.out.println("{ " + color.getRed() + ", " + color.getGreen() + ", " + color.getBlue() + " }");
 				colors.add(color);
-
 			}
 		}
-		System.out.println(colors.size());	
+		System.out.println(colors.size());
 	}
 }
