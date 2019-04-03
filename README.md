@@ -10,7 +10,7 @@ The python version will use Pillow to read the image.
 	./run.sh [image] [arguments]
 ```
 * the arguments will be for which algorithm the program should use (not yet implemented).
-	
+(In order to print the image accurately, font size should be pretty small)	
 2) python:
 ```
 	... (not yet implemented) 

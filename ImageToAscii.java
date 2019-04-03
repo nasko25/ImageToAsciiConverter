@@ -48,8 +48,8 @@ public class ImageToAscii {
 		if (args.length >= 1) {
 			System.out.println(args[0]);
 		}
-		
-		BufferedImage image = ImageIO.read(new File("test_photos/photo1.jpg"));
+			// TODO the user should be able to select images	
+		BufferedImage image = ImageIO.read(new File("test_photos/photo2.jpg"));
 		double width = image.getWidth(); 
 		double height = image.getHeight();	
 		System.out.println("\n\nWidth and Height: " + "W: " + width + " _____ "+ "H: " + height);	
@@ -61,6 +61,7 @@ public class ImageToAscii {
 		else if (args.length > 1 && args[1].equals("--lightness")) { ref = ImageToAscii::getLightness; }
 		else { ref = ImageToAscii::getLuminance; }
 
+		// TODO width and height should be swapped
 		ArrayList<Float> brightnessValues = new ArrayList<>(); 
 		for (int w = 0; w < width; w++) {
 			for (int h = 0; h < height; h++) {
@@ -72,14 +73,29 @@ public class ImageToAscii {
 		String characters = "`^\",:;Il!i~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$";
 		
 		// map the brightness values to the characters
-		float maxBrightness = Collections.max(brightnessValues);	
+		float maxBrightness = Collections.max(brightnessValues);
 		float minBrightness = Collections.min(brightnessValues);
 		float brightnessLength = (float) (Math.ceil(maxBrightness) - Math.floor(minBrightness));
 
 		float c = ( brightnessLength / ((float) characters.length()));
 
 		// to map the brightness vales to the characters, you need to divide the brightness value to c, and floor the result
-		// the result corresponds to the index of the charater in the String characters.
+		// the result corresponds to the index of the charater in the String characters
+		
+		ArrayList<Character> convertedCharacters = new ArrayList<>();
+		int indexOfCharacter;
+		int newLine = 0;
+		for (int i = 0; i < width*height; i++) {
+			indexOfCharacter = (int) Math.floor((brightnessValues.get(i))/c);
+			if (indexOfCharacter >= 65) { indexOfCharacter = 64; }
+			try {
+				System.out.print(characters.charAt(indexOfCharacter));
+			}
+			catch (Exception e ) { e.printStackTrace();}
+			newLine++;
+			if (newLine == height) {System.out.println(); newLine = 0;}
+		}
+	
 	}
 
 	public static interface Interface {
