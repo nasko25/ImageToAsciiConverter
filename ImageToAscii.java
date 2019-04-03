@@ -3,6 +3,8 @@ import java.util.Collections;
 import java.awt.Dimension;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.io.File; 
 import java.lang.Float;
 import java.lang.Math;
@@ -44,13 +46,25 @@ public class ImageToAscii {
 		return (0.2126f * red + 0.7152f * green + 0.0722f * blue); 
 	}
 
+
+	public static BufferedImage rescale(BufferedImage original, double scaleFactor) {
+		BufferedImage newImage = null;
+		if(original != null) {
+			newImage = new BufferedImage((int)(original.getWidth()*scaleFactor), (int)(original.getHeight()*scaleFactor), original.getType());
+			Graphics2D g2d = newImage.createGraphics();
+			AffineTransform at = AffineTransform.getScaleInstance(scaleFactor, scaleFactor);
+			g2d.drawRenderedImage(original, at);
+		}
+		return newImage;
+	}
+
 	public static void main(String args[]) throws Exception{
 		if (args.length >= 1) {
 			System.out.println(args[0]);
 		}
-			// TODO the user should be able to select images
-		// TODO scale the image down	
+			// TODO the user should be able to select images, and probably the scale factor
 		BufferedImage image = ImageIO.read(new File("test_photos/photo2.jpg"));
+		image = rescale(image, 0.2);
 		int width = (int)image.getWidth(); 
 		int height = (int)image.getHeight();	
 		System.out.println("\n\nWidth and Height: " + "W: " + width + " _____ "+ "H: " + height);	
@@ -95,7 +109,8 @@ public class ImageToAscii {
 			maxWidth++;
 			if (maxWidth == width) {System.out.println(); maxWidth = 0;}
 		}
-	
+		
+		// TODO print 3 characters instead of 1. because the image looks squashed
 	}
 
 	public static interface Interface {
