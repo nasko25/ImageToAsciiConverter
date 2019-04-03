@@ -4,7 +4,7 @@ FILE="ImageToAscii.class"
 if [ -e ./"$FILE" ]; then
 	rm $FILE
 else 
-	echo "File does not exists"
+	printf "Program is not compiled.\n...Compiling...\n\n"
 fi
 
 javac ImageToAscii.java

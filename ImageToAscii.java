@@ -11,7 +11,10 @@ import java.lang.Math;
 import javax.imageio.ImageIO;
 
 public class ImageToAscii {
-
+	
+	private static BufferedImage image;
+	private static String filePath = "test_photos/photo2.jpg";
+	
 	public static int getMax(int a, int b, int c) {
 		int max = a;
 		if (max < b) { max = b; }
@@ -58,16 +61,33 @@ public class ImageToAscii {
 		return newImage;
 	}
 
+	public static int useDefaultImage () {	
+		try {
+			image = ImageIO.read(new File(filePath)); 
+			return 1;
+		} catch (Exception e) { System.out.println("You have deleted the default image file."); return 0; }
+	}
+
 	public static void main(String args[]) throws Exception{
-		if (args.length >= 1) {
-			System.out.println(args[0]);
+		if (args.length>=1) {
+			try {
+				image = ImageIO.read(new File(args[0]));
+			} 
+			catch (Exception e) { // TODO can also print usage in this case 
+				System.out.println("File does not exist"); 
+				if (useDefaultImage() == 1) { System.out.println("Using a default one instad."); }
+				else { return; }
+			}
 		}
-			// TODO the user should be able to select images, and probably the scale factor
-		BufferedImage image = ImageIO.read(new File("test_photos/photo2.jpg"));
+		else {	
+			if(useDefaultImage() == 1) { System.out.println("Using a default image file. "); }
+			else {return; }	
+		}
+
 		image = rescale(image, 0.2);
 		int width = (int)image.getWidth(); 
 		int height = (int)image.getHeight();	
-		System.out.println("\n\nWidth and Height: " + "W: " + width + " _____ "+ "H: " + height);	
+		System.out.println("\n\nWidth and Height of the photo: " + "W: " + width + " _____ "+ "H: " + height);	
 		
 		// assigning it a method depending on what arguments the user provides	
 		final Interface ref;
