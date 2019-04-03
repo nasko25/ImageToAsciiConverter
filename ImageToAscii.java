@@ -48,10 +48,11 @@ public class ImageToAscii {
 		if (args.length >= 1) {
 			System.out.println(args[0]);
 		}
-			// TODO the user should be able to select images	
+			// TODO the user should be able to select images
+		// TODO scale the image down	
 		BufferedImage image = ImageIO.read(new File("test_photos/photo2.jpg"));
-		double width = image.getWidth(); 
-		double height = image.getHeight();	
+		int width = (int)image.getWidth(); 
+		int height = (int)image.getHeight();	
 		System.out.println("\n\nWidth and Height: " + "W: " + width + " _____ "+ "H: " + height);	
 		
 		// assigning it a method depending on what arguments the user provides	
@@ -61,10 +62,9 @@ public class ImageToAscii {
 		else if (args.length > 1 && args[1].equals("--lightness")) { ref = ImageToAscii::getLightness; }
 		else { ref = ImageToAscii::getLuminance; }
 
-		// TODO width and height should be swapped
 		ArrayList<Float> brightnessValues = new ArrayList<>(); 
-		for (int w = 0; w < width; w++) {
-			for (int h = 0; h < height; h++) {
+		for (int h = 0; h < height; h++) {
+			for (int w = 0; w < width; w++) {
 				Color color = new Color(image.getRGB(w, h));
 				brightnessValues.add(ref.getAlgorithmResult(color));
 			}
@@ -84,16 +84,16 @@ public class ImageToAscii {
 		
 		ArrayList<Character> convertedCharacters = new ArrayList<>();
 		int indexOfCharacter;
-		int newLine = 0;
-		for (int i = 0; i < width*height; i++) {
+		int maxWidth = 0;
+		for (int i = 0; i < height*width; i++) {
 			indexOfCharacter = (int) Math.floor((brightnessValues.get(i))/c);
 			if (indexOfCharacter >= 65) { indexOfCharacter = 64; }
 			try {
 				System.out.print(characters.charAt(indexOfCharacter));
 			}
 			catch (Exception e ) { e.printStackTrace();}
-			newLine++;
-			if (newLine == height) {System.out.println(); newLine = 0;}
+			maxWidth++;
+			if (maxWidth == width) {System.out.println(); maxWidth = 0;}
 		}
 	
 	}
