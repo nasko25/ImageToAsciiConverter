@@ -102,10 +102,9 @@ public class ImageToAscii {
 		for (int i = 0; i < height*width; i++) {
 			indexOfCharacter = (int) Math.floor((brightnessValues.get(i))/c);
 			if (indexOfCharacter >= 65) { indexOfCharacter = 64; }
-			try {
+			for (int count = 0; count < 3; count++) {
 				System.out.print(characters.charAt(indexOfCharacter));
 			}
-			catch (Exception e ) { e.printStackTrace();}
 			maxWidth++;
 			if (maxWidth == width) {System.out.println(); maxWidth = 0;}
 		}
