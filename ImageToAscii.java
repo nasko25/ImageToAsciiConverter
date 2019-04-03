@@ -110,6 +110,8 @@ public class ImageToAscii {
 		}
 		
 		// TODO print 3 characters instead of 1. because the image looks squashed
+		// MayDO add an "invert-colors" option
+		// add a "in-color" option
 	}
 
 	public static interface Interface {
